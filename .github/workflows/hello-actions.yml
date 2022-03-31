@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+  ECR_REPOSITORY_EXISTS: ${{ secrets.ECR_REPOSITORY != '' }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -34,5 +34,18 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: fetch ecr repo from secrets
+        if: env.ECR_REPOSITORY_EXISTS == 'true'
+        env:
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
           echo ecr repo name is $ECR_REPOSITORY
+
+      - name: fetch ecr repo from repo name
+        if: env.ECR_REPOSITORY_EXISTS == 'false'
+        env:
+          ECR_REPOSITORY: ${GITHUB_REPOSITORY#*/}
+        run: |
+          echo ecr repo name is $ECR_REPOSITORY
+
+      - name: is env var available in next step ?
+        run: echo ecr repo name is $ECR_REPOSITORY
