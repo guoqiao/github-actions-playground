@@ -31,7 +31,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: fetch ecr repo from secrets
-        if: secrets.ECR_REPOSITORY
+        if: secrets.ECR_REPOSITORY != ""
         env:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
@@ -39,7 +39,7 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: fetch ecr repo from envvar
-        if: !secrets.ECR_REPOSITORY
+        if: secrets.ECR_REPOSITORY == ""
         env:
           ECR_REPOSITORY: ${GITHUB_REPOSITORY#*/}
         run: |
