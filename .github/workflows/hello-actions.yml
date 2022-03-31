@@ -38,14 +38,15 @@ jobs:
         env:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
         run: |
-          echo ecr repo name is $ECR_REPOSITORY
+          echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> $GITHUB_ENV
 
       - name: fetch ecr repo from repo name
         if: env.ECR_REPOSITORY_EXISTS == 'false'
         env:
           ECR_REPOSITORY: ${GITHUB_REPOSITORY#*/}
         run: |
-          echo ecr repo name is $ECR_REPOSITORY
+          echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> $GITHUB_ENV
 
       - name: is env var available in next step ?
-        run: echo ecr repo name is $ECR_REPOSITORY
+        run: |
+          echo "final ecr repo name is ${{ env.ECR_REPOSITORY }}"
