@@ -1,0 +1,44 @@
+name: dump context
+
+on:
+  push:
+    branches:
+      - main
+      - alpha
+      - dev
+    tags:
+      - prod*
+      - dev*
+      - alpha*
+  # allow to trigger manually
+  workflow_dispatch:
+
+jobs:
+  dump-context:
+    runs-on: ubuntu-latest
+    name: dump context
+    steps:
+
+    - name: Dump github context
+      run: echo '${{ toJSON(github) }}'
+
+    - name: Dump env context
+      run: echo '${{ toJSON(env) }}'
+
+    - name: Dump secrets context
+      run: echo '${{ toJSON(secrets) }}'
+
+    - name: Dump job context
+      run: echo '${{ toJSON(job) }}'
+
+    - name: Dump steps context
+      run: echo '${{ toJSON(steps) }}'
+
+    - name: Dump runner context
+      run: echo '${{ toJSON(runner) }}'
+
+    - name: Dump strategy context
+      run: echo '${{ toJSON(strategy) }}'
+
+    - name: Dump matrix context
+      run: echo '${{ toJSON(matrix) }}'
