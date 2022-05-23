@@ -7,9 +7,9 @@ on:
       - alpha
       - dev
     tags:
-      - prod*
-      - dev*
-      - alpha*
+      - k8s-prod*
+      - k8s-dev*
+      - k8s-alpha*
   # allow to trigger manually
   workflow_dispatch:
 
