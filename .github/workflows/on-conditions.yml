@@ -8,16 +8,16 @@ on:
       # - alpha
       # - dev
     tags:
-      - k8s-prod-*
-      - k8s-alpha-*
-      - k8s-dev-*
+      - k8s-prod*
+      - k8s-alpha*
+      - k8s-dev*
 
 jobs:
   build:
     if: |
-        (startsWith(github.ref_name, 'k8s-dev') && event.base_ref == 'refs/heads/dev') ||
-        (startsWith(github.ref_name, 'k8s-alpha') && event.base_ref == 'refs/heads/alpha') ||
-        (startsWith(github.ref_name, 'k8s-prod') && event.base_ref == 'refs/heads/main') ||
+        (startsWith(github.ref_name, 'k8s-dev') && github.event.base_ref == 'refs/heads/dev') ||
+        (startsWith(github.ref_name, 'k8s-alpha') && github.event.base_ref == 'refs/heads/alpha') ||
+        (startsWith(github.ref_name, 'k8s-prod') && github.event.base_ref == 'refs/heads/main') ||
     runs-on: ubuntu-latest
 
     steps:
