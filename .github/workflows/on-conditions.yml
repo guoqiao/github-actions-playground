@@ -15,14 +15,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      git_tag: ${{ github.ref_name }}
+      git_sha_prefix: $(echo ${{ github.sha }} | cut -c 1-7)
+      img_tag: ${git_tag}-${git_sha_prefix}
+
     steps:
 
       - name: Dump github context
-        run: echo '${{ toJSON(github) }}'
-
-      - name: get img tag from tag and commit sha
-        id: git_tag
         run: |
-          git_tag=${{ github.ref_name }}
-          git_sha_prefix=$(echo ${{ github.sha }} | cut -c 1-7)
-          img_tag=${git_tag}-${git_sha_prefix}
+          echo '${{ toJSON(github) }}'
+          echo '${{ toJSON(env) }}'
