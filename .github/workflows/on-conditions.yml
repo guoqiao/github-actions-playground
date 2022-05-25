@@ -1,5 +1,10 @@
 name: On Conditons
 
+env:
+  git_tag: ${{ github.ref_name }}
+  git_sha_prefix: $(echo ${{ github.sha }} | cut -c 1-7)
+  img_tag: ${git_tag}-${git_sha_prefix}
+
 on:
   workflow_dispatch:
   push:
@@ -15,10 +20,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      git_tag: ${{ github.ref_name }}
-      git_sha_prefix: $(echo ${{ github.sha }} | cut -c 1-7)
-      img_tag: ${git_tag}-${git_sha_prefix}
 
     steps:
 
