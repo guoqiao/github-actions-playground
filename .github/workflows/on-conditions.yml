@@ -1,0 +1,25 @@
+name: On Conditons
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - alpha
+      - dev
+    tags:
+      - k8s-prod-*
+      - k8s-alpha-*
+      - k8s-dev-*
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      - name: Dump github context
+        run: echo '${{ toJSON(github) }}'
