@@ -15,9 +15,9 @@ on:
 jobs:
   build:
     if: |
-        (startsWith(github.ref_name, 'k8s-dev') && github.event.base_ref == 'refs/heads/dev') ||
-        (startsWith(github.ref_name, 'k8s-alpha') && github.event.base_ref == 'refs/heads/alpha') ||
-        (startsWith(github.ref_name, 'k8s-prod') && github.event.base_ref == 'refs/heads/main') ||
+      (startsWith(github.ref_name, 'k8s-dev') && github.event.base_ref == 'refs/heads/dev') ||
+      (startsWith(github.ref_name, 'k8s-alpha') && github.event.base_ref == 'refs/heads/alpha') ||
+      (startsWith(github.ref_name, 'k8s-prod') && github.event.base_ref == 'refs/heads/main')
     runs-on: ubuntu-latest
 
     steps:
