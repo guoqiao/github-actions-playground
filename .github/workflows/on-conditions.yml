@@ -2,10 +2,10 @@ name: On Conditons
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
-      - alpha
-      - dev
+    # branches:
+      # - main
+      # - alpha
+      # - dev
     tags:
       - k8s-prod-*
       - k8s-alpha-*
