@@ -1,7 +1,5 @@
 name: On Conditons
 
-env:
-
 on:
   workflow_dispatch:
   push:
