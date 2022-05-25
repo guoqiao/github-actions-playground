@@ -1,4 +1,5 @@
 name: On Conditons
+
 on:
   workflow_dispatch:
   push:
@@ -18,3 +19,10 @@ jobs:
 
       - name: Dump github context
         run: echo '${{ toJSON(github) }}'
+
+      - name: get img tag from tag and commit sha
+        id: git_tag
+        run: |
+          git_tag=${{ github.ref_name }}
+          git_sha_prefix=$(echo ${{ github.sha }} | cut -c 1-7)
+          img_tag=${git_tag}-${git_sha_prefix}
