@@ -1,9 +1,6 @@
 name: On Conditons
 
 env:
-  git_tag: ${{ github.ref_name }}
-  git_sha_prefix: $(echo ${{ github.sha }} | cut -c 1-7)
-  img_tag: ${git_tag}-${git_sha_prefix}
 
 on:
   workflow_dispatch:
@@ -19,11 +16,19 @@ on:
 
 jobs:
   build:
+    if: |
+        (startsWith(github.ref_name, 'k8s-dev') && event.base_ref == 'refs/heads/dev') ||
+        (startsWith(github.ref_name, 'k8s-alpha') && event.base_ref == 'refs/heads/alpha') ||
+        (startsWith(github.ref_name, 'k8s-prod') && event.base_ref == 'refs/heads/main') ||
     runs-on: ubuntu-latest
 
     steps:
 
       - name: Dump github context
         run: |
+          git_tag=${{ github.ref_name }}
+          git_sha_prefix=$(echo ${{ github.sha }} | cut -c 1-7)
+          img_tag=${git_tag}-${git_sha_prefix}
+          echo "IMAGE_TAG=$img_tag" >> $GITHUB_ENV
           echo '${{ toJSON(github) }}'
           echo '${{ toJSON(env) }}'
